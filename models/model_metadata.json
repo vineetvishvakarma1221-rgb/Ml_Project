@@ -1,0 +1,7 @@
+{
+    "model": "Random Forest",
+    "version": "1.0",
+    "threshold": 0.25,
+    "Features": 8,
+    "status": "production ready"
+}

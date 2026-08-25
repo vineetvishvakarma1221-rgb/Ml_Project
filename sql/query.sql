@@ -1,0 +1,1 @@
+SELECT * FROM electricity_fraud_db;
