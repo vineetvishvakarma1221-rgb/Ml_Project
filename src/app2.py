@@ -8,7 +8,13 @@ from datetime import datetime
 import plotly.express as px
 from database import *
 from predict import *
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+ASSETS_DIR = BASE_DIR/'assets'
+MODEL_DIR = BASE_DIR/'models'
+SRC_DIR = BASE_DIR/'src'
 #  PAGE CONFIG
 
 st.set_page_config(
@@ -21,7 +27,7 @@ st.set_page_config(
 
 def load_css():
     try:
-        with open(r"C:\Users\vinee\ML_Project\src\style.css",'r',encoding='utf-8') as f:
+        with open(SRC_DIR/"style.css",'r',encoding='utf-8') as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     except Exception:
         pass
@@ -89,12 +95,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 try:
-    st.image(r"C:\Users\vinee\ML_Project\assets\banner.png", use_container_width=True)
+    st.image(ASSETS_DIR/"banner.png", use_container_width=True)
 except Exception:
     pass
 
 try:
-    st.sidebar.image(r"C:\Users\vinee\ML_Project\assets\logo.png", width=100)
+    st.sidebar.image(ASSETS_DIR/"logo.png", width=100)
 except Exception:
     st.sidebar.markdown("### ⚡")
 
@@ -103,11 +109,11 @@ except Exception:
 # ============================================================
 @st.cache_resource
 def load_feature_name():
-    return jb.load(r"C:\Users\vinee\ML_Project\models\feature_names.pkl")
+    return jb.load(MODEL_DIR/"feature_names.pkl")
 
 @st.cache_resource
 def load_explainer():
-    return jb.load(r"C:\Users\vinee\ML_Project\models\shap_explainer.pkl")
+    return jb.load(MODEL_DIR/"shap_explainer.pkl")
 
 # ============================================================
 #  SIDEBAR
@@ -442,8 +448,8 @@ with tab_predict:
 # ------------------------------------------------------------
 feature_names = load_feature_name()
 explainer = load_explainer()
-jb.dump(explainer, r"C:\Users\vinee\ML_Project\models\shap_explainer.pkl")
-Exp_path = r"C:\Users\vinee\ML_Project\models\shap_explainer.pkl"
+jb.dump(explainer, MODEL_DIR/"shap_explainer.pkl")
+Exp_path = MODEL_DIR/"shap_explainer.pkl"
 explainer = load_explainer()
 
 def explain_prediction(data_input):
