@@ -388,6 +388,7 @@ if upload_file is not None :
     req_features = feature_names 
     missing = [col for col in req_features if col not in batch_df.columns]
     if missing :
+        extract_model_feature(batch_df)
         st.error(f'Missing Columns : {missing}')
         st.stop()
 

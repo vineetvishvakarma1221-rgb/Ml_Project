@@ -503,24 +503,25 @@ with tab_batch:
         req_features = feature_names
         missing = [col for col in req_features if col not in batch_df.columns]
         if missing:
-            st.error(f'Missing Columns : {missing}')
-            st.stop()
+            batch_df=extract_model_feature(batch_df)
+            #st.error(f'Missing Columns : {missing}')
+            #st.stop()
 
         with st.spinner("⚡ Scoring uploaded customers..."):
             result_df = batch_predict(batch_df)
 
         st.markdown("##### Prediction Results")
         st.dataframe(result_df, use_container_width=True)
-
+        save_batch_prediction_mysql(result_df)
         fraud = (result_df['prediction'] == 1).sum()
         normal = (result_df['prediction'] == 0).sum()
         c1, c2 = st.columns(2)
         with c1:
             kpi_card("Fraud Customers", fraud)
         with c2:
-            kpi_card("Normal Customers")
+            kpi_card("Normal Customers",normal)
 
-        risk_counts = result_df['Risk'].value_counts()
+        risk_counts = result_df['risk'].value_counts()
         fig = px.bar(x=risk_counts.index, y=risk_counts.values, title="Risk Distribution (Batch)",
                      labels={"x": "Risk", "y": "Count"}, color=risk_counts.index,
                      color_discrete_map={"Low": "#22c55e", "Medium": "#ffb020", "High": "#ff5566"})
@@ -540,9 +541,9 @@ with tab_batch:
 # ------------------------------------------------------------
 from utils import *
 
-save_prediction(customer, result)
+#save_prediction(customer,result)
 try:
-    save_prediction_mysql(customer, result)
+    save_prediction_mysql(customer,result)
 except Exception as e:
     st.warning(f"MySQL save Failed : {e}")
 
@@ -583,7 +584,7 @@ with tab_history:
         st.download_button("📥 Download Prediction History", csv, "Prediction_History.csv", "text/csv")
 
     if st.button("🗑 Clear Prediction History"):
-        clear_history()
+        #clear_history()
         clear_prediction_history()
         st.success("Prediction history deleted.")
         st.rerun()
@@ -594,7 +595,7 @@ with tab_history:
         with col1:
             kpi_card("Total Predictions", len(history))
         with col2:
-            kpi_card("Fraud Cases", (history["Prediction"] == 'Fruad').sum())
+            kpi_card("Fraud Cases", (history["Prediction"] == 'Fraud').sum())
         with col3:
             kpi_card("Normal Cases", (history["Prediction"] == 'Normal').sum())
 
