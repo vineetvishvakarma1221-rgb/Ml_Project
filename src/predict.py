@@ -1,7 +1,7 @@
 import joblib
 import pandas as pd
 import numpy as np
-from src.feature_engineering import extract_model_feature
+from feature_engineering import extract_model_feature
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
