@@ -1,15 +1,16 @@
 import mysql.connector
+import os 
 from mysql.connector import Error
 from datetime import datetime
 from predict import * 
 import pandas as pd 
 
 DB_config = {
-    'host':'localhost',
-    'port':3306,
-    'user':'root',
-    'password':'root123',
-    'database':'electricity_fraud_db'
+    'host':os.getenv("MYSQLHOST","localhost"),
+    'port':int(os.getenv("MYSQLPORT",'3306')),
+    'user':os.getenv("MYSQLUSER",'root'),
+    'password':os.getenv("MYSQLPASSWORD",'root123'),
+    'database':os.getenv("MYSQLDATABASE",'electricity_fraud_db')
 }
 def get_connect():
     try :
@@ -265,10 +266,8 @@ def clear_prediction_history():
 
 
 if __name__=="__main__":
-    table = show_table()
-    for t in table :
-        print('ok',t[0])
-    print()
-    print('total record')
-    print("  ",total_record())
-    
+    print("MySQL database connection test")
+    if test_connection():
+        print('MySQL connction successful!')
+    else :
+        print("connection failed")
