@@ -1,8 +1,8 @@
 # ⚡ Electricity Fraud Detection System
 An enterprise grade, end-to-end machine learning system desighned to electricity theft using smart meter consumption data, autmated ML pipelines, expalinable AI (SHAP)
 
-Live Demo:
-GitHub:
+Live Demo: https://mlproject-production-9a5d.up.railway.app/  
+GitHub: https://github.com/vineetvishvakarma1221-rgb/Ml_Project  
 
 ---
 
@@ -335,9 +335,9 @@ Interested in :
 ---
 
 ## Project Links
-Live Demo: 
-https://mlproject-production-9a5d.up.railway.app/
-GitHub Repository:
+Live Demo:  
+https://mlproject-production-9a5d.up.railway.app/  
+GitHub Repository:  
 https://github.com/vineetvishvakarma1221-rgb/Ml_Project
 
 If you find the project useful, consider giving the repository a ⭐.
