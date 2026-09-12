@@ -25,10 +25,10 @@ from report_pdf import (
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 ASSETS_DIR = BASE_DIR/'assets'
 MODEL_DIR = BASE_DIR/'models'
 SRC_DIR = BASE_DIR/'src'
+
 #  PAGE CONFIG
 
 st.set_page_config(
@@ -47,7 +47,6 @@ def load_css():
         pass
 
 load_css()
-
 #  SMALL UI HELPERS
 
 def section_header(icon, title, subtitle=""):
